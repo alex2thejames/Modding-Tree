@@ -116,7 +116,7 @@ addLayer("m", {
         return ret
     },
     effectDescription(){
-            return "which multiplies digging speed (based on best) " + formatWhole(layers.m.effect())
+            return "which multiplies digging speed " + formatWhole(layers.m.effect()) + " (based on best)"
     },
     requires: new Decimal(100), // Can be a function that takes requirement increases into account
     resource: "Machines", // Name of prestige currency
