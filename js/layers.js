@@ -25,7 +25,7 @@ addLayer("h", {
             cols: 4,
             11: {
                 title: "Where are these hands coming from?",
-                description: "Gain 1 Hand every second.",
+                description: "Gain 1 Pound every second.",
                 cost: new Decimal(1),
                 unlocked() { return player[this.layer].unlocked }, // The upgrade is only visible when this is true
             },
