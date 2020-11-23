@@ -25,7 +25,7 @@ addLayer("h", {
             cols: 4,
             11: {
                 title: "Where are these hands coming from?",
-                description: "Gain 1 Pound every second.",
+                description: "Gain 1 Hand every second.",
                 cost: new Decimal(1),
                 unlocked() { return player[this.layer].unlocked }, // The upgrade is only visible when this is true
             },
@@ -47,7 +47,7 @@ addLayer("h", {
                 cost: new Decimal(25),
                 unlocked() { return (hasUpgrade(this.layer, 13))},
                 effect() { 
-                    let ret = player[this.layer].points.add(1).pow(player[this.layer].upgrades.includes(14)?0.75:0.5.upgrades.includes(14)?0.85:0.5) 
+                    let ret = player[this.layer].points.add(1).pow(player[this.layer].upgrades.includes(14)?0.75:0.5) 
                     if (ret.gte("1e20000000")) ret = ret.sqrt().times("1e10000000")
                     return ret;
                 },
@@ -95,15 +95,35 @@ addLayer("m", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-		points: new Decimal(0),
+        points: new Decimal(0),
+        best: new Decimal(0),
     }},
     color: "#484848",
+    effect(){
+        let a = player.m.points
+        if (a.eq(0) && player.m.best.gt(0)) a = new Decimal(1)
+
+        let ret = a.plus(1).pow(Math.log(3)/Math.log(2))
+        if (!hasUpgrade("h", 23)) {
+                if (ret.gt(100)) ret = ret.div(100).sqrt().times(100)
+                if (ret.gt(1000)) ret = ret.div(1000).pow(.25).times(1000)
+                if (ret.gt(1e4)) ret = ret.div(1e4).pow(.125).times(1e4)
+                if (ret.gt(1e5)) ret = ret.log10().times(2).pow(5)
+        }
+        if (ret.gt(1e10)) ret = ret.log10().pow(10)
+        if (ret.gt(1e25)) ret = ret.log10().times(4000).pow(5)
+        
+        return ret
+    },
+    effectDescription(){
+            return "which multiplies incrementy and point gain by " + formatWhole(layers.m.effect())
+    },
     requires: new Decimal(100), // Can be a function that takes requirement increases into account
     resource: "Machines", // Name of prestige currency
     baseResource: "Hands", // Name of resource prestige is based on
     baseAmount() {return player.h.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.1, // Prestige currency exponent
+    exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -115,8 +135,8 @@ addLayer("m", {
             rows: 2,
             cols: 4,
             11: {
-                title: "Where are these hands coming from?",
-                description: "Gain 1 Hand every second.",
+                title: "Use your machines for something",
+                description: "Machines increase pound gain",
                 cost: new Decimal(1),
                 unlocked() { return player[this.layer].unlocked }, // The upgrade is only visible when this is true
             },
@@ -178,7 +198,7 @@ addLayer("m", {
     hotkeys: [
         {key: "m", description: "Reset for machines", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){if (hasUpgrade("h", 24)){
+    layerShown(){if (hasUpgrade("h", 24) || player.m.best > 0){
         return true
     }
     else{

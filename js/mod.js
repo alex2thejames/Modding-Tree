@@ -29,19 +29,21 @@ function getStartPoints(){
 function canGenPoints(){
 	return hasUpgrade("h", 11)
 }
-
+// var mGain = 1;
 // Calculate points/sec!
 function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
     let gain = new Decimal(1)
+    if (hasUpgrade("m",11)) gain = gain.times(layers.m.effect())
     if (hasUpgrade("h", 12)) gain = gain.times(2)
     if (hasUpgrade("h", 13)) gain = gain.times(2)
     if (hasUpgrade("h", 14)) gain = gain.times(upgradeEffect("h", 14))
     if (hasUpgrade("h", 21)) gain = gain.times(4)
     if (hasUpgrade("h", 22)) gain = gain.times(upgradeEffect("h", 22))
     if (hasUpgrade("h", 23)) gain = gain.times(upgradeEffect("h", 22))
+    // if (hasUpgrade("m", 11)) player.m.points = player.m.points.add(1)
 	return gain
 }
 
