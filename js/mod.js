@@ -1,20 +1,20 @@
 let modInfo = {
-	name: "The ??? Tree",
+	name: "The Pound Tree",
 	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
+	author: "extremewonder1",
+	pointsName: "Pounds",
 	discordName: "",
 	discordLink: "",
 	changelogLink: "https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (1.3e25), // Used for hard resets and new players
 	
-	offlineLimit: 1,  // In hours
+	offlineLimit: 0,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1",
+	name: "First",
 }
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
