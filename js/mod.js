@@ -13,8 +13,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "First",
+	num: "0.2",
+	name: "Rise of the machines",
 }
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
@@ -40,7 +40,8 @@ function getPointGen() {
     if (hasUpgrade("h", 13)) gain = gain.times(2)
     if (hasUpgrade("h", 14)) gain = gain.times(upgradeEffect("h", 14))
     if (hasUpgrade("h", 21)) gain = gain.times(4)
-    if (hasUpgrade("h", 22)) gain = gain.times(4)
+    if (hasUpgrade("h", 22)) gain = gain.times(upgradeEffect("h", 22))
+    if (hasUpgrade("h", 23)) gain = gain.times(upgradeEffect("h", 22))
 	return gain
 }
 
@@ -49,12 +50,16 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [ PoundsLeft
+var displayThings = [ PoundsLeft, EndgameNote
 ]
 
 function PoundsLeft() {
 	var pTrunked = player.points.toFixed(0)
 	return ("Pounds of Earth left " + (1.3e25 - pTrunked));
+}
+
+function EndgameNote() {
+    return ("Current Endgame: 1 machine upgrade")
 }
 
 // Determines when the game "ends"
