@@ -31,13 +31,13 @@ addLayer("h", {
             },
             12: {
                 title: "You do have two of them...",
-                description: "Double Hand Gain",
+                description: "Double Pound Gain",
                 cost: new Decimal(3),
                 unlocked() { return (hasUpgrade(this.layer, 11))},
             },
             13: {
                 title: "Power of Vishnu",
-                description: "Double hand Gain",
+                description: "Double Pound Gain",
                 cost: new Decimal(10),
                 unlocked() { return (hasUpgrade(this.layer, 12))},
             },
@@ -55,13 +55,13 @@ addLayer("h", {
             },
             21: {
                 title: "Get your room mates to help out",
-                description: "Quadruple hand Gain",
+                description: "Quadruple Pound Gain",
                 cost: new Decimal(250),
                 unlocked() { return (hasUpgrade(this.layer, 14))},
             },
             22: {
                 title: "More experience = faster digging",
-                description: "Digging speed increased based on amount of pounds",
+                description: "Digging speed increased based on amount of Pounds",
                 cost: new Decimal(500),
                 unlocked() { return (hasUpgrade(this.layer, 14))},
                 effect() { 
@@ -116,7 +116,7 @@ addLayer("m", {
         return ret
     },
     effectDescription(){
-            return "which multiplies incrementy and point gain by " + formatWhole(layers.m.effect())
+            return "which multiplies digging speed " + formatWhole(layers.m.effect())
     },
     requires: new Decimal(100), // Can be a function that takes requirement increases into account
     resource: "Machines", // Name of prestige currency
