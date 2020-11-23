@@ -1,12 +1,12 @@
 let modInfo = {
 	name: "The Pound Tree",
-	id: "mymod",
+	id: "SwagMoney",
 	author: "extremewonder1",
 	pointsName: "Pounds",
 	discordName: "",
 	discordLink: "",
 	changelogLink: "https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md",
-	initialStartPoints: new Decimal (1.3e25), // Used for hard resets and new players
+	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	
 	offlineLimit: 0,  // In hours
 }
@@ -27,7 +27,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return hasUpgrade("h", 11)
 }
 
 // Calculate points/sec!
@@ -35,7 +35,12 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+    let gain = new Decimal(1)
+    if (hasUpgrade("h", 12)) gain = gain.times(2)
+    if (hasUpgrade("h", 13)) gain = gain.times(2)
+    if (hasUpgrade("h", 14)) gain = gain.times(upgradeEffect("h", 14))
+    if (hasUpgrade("h", 21)) gain = gain.times(4)
+    if (hasUpgrade("h", 22)) gain = gain.times(4)
 	return gain
 }
 
@@ -44,14 +49,18 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [
+var displayThings = [ PoundsLeft
 ]
+
+function PoundsLeft() {
+	var pTrunked = player.points.toFixed(0)
+	return ("Pounds of Earth left " + (1.3e25 - pTrunked));
+}
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("0"))
+	return player.points.gte(new Decimal("1.3e25"))
 }
-
 
 
 // Less important things beyond this point!
