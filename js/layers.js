@@ -32,7 +32,7 @@ addLayer("h", {
             12: {
                 title: "You do have two of them...",
                 description: "Double Pound Gain",
-                cost: new Decimal(3),
+                cost: new Decimal(2),
                 unlocked() { return (hasUpgrade(this.layer, 11))},
             },
             13: {
@@ -44,7 +44,7 @@ addLayer("h", {
             14: {
                 title: "Hands * Hands?",
                 description: "Digging speed is faster based on your unspent Hands.",
-                cost: new Decimal(25),
+                cost: new Decimal(20),
                 unlocked() { return (hasUpgrade(this.layer, 13))},
                 effect() { 
                     let ret = player[this.layer].points.add(1).pow(player[this.layer].upgrades.includes(14)?0.75:0.5) 
@@ -56,13 +56,13 @@ addLayer("h", {
             21: {
                 title: "Get your room mates to help out",
                 description: "Quadruple Pound Gain",
-                cost: new Decimal(250),
+                cost: new Decimal(100),
                 unlocked() { return (hasUpgrade(this.layer, 14))},
             },
             22: {
                 title: "More experience = faster digging",
                 description: "Digging speed increased based on amount of Pounds",
-                cost: new Decimal(500),
+                cost: new Decimal(2500),
                 unlocked() { return (hasUpgrade(this.layer, 14))},
                 effect() { 
                     let ret = player.points.add(1).log10().pow(0.75).add(1)
@@ -79,7 +79,7 @@ addLayer("h", {
             24: {
                 title: "Upgrade to machines",
                 description: "Unlock a new layer",
-                cost: new Decimal(10000),
+                cost: new Decimal(25000),
                 unlocked() { return (hasUpgrade(this.layer, 23))},
             },
         },
